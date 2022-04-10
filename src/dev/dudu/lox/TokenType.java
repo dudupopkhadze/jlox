@@ -1,4 +1,4 @@
-package dev.dudu;
+package dev.dudu.lox;
 
 public  enum TokenType {
     // Single-character tokens.

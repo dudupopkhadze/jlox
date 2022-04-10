@@ -1,4 +1,4 @@
-package dev.dudu;
+package dev.dudu.lox;
 
 public class Token {
     final TokenType type;

@@ -1,4 +1,4 @@
-package dev.dudu;
+package dev.dudu.lox;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,7 +7,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Scanner;
+
 
 public class Lox {
 
@@ -26,6 +26,7 @@ public class Lox {
         byte[] bytes = Files.readAllBytes(Paths.get(path));
         run(new String(bytes, Charset.defaultCharset()));
 
+
         // Indicate an error in the exit code.
         if (hadError) System.exit(65);
     }
@@ -34,7 +35,7 @@ public class Lox {
         InputStreamReader input = new InputStreamReader(System.in);
         BufferedReader reader = new BufferedReader(input);
         for (;;) {
-            System.out.print("> ");
+            System.out.print("file name > ");
             String line = reader.readLine();
             if (line == null) break;
             run(line);
