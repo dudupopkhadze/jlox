@@ -10,7 +10,7 @@ import java.util.List;
 
 
 public class Lox {
-
+    static boolean hadRuntimeError = false;
     static boolean hadError = false;
     public static void main(String[] args) throws IOException {
         if (args.length > 1) {
@@ -20,7 +20,16 @@ public class Lox {
             runFile(args[0]);
         } else {
             runPrompt();
-        } }
+        }
+    }
+
+    static void runtimeError(RuntimeError error) {
+        System.err.println(error.getMessage() +
+                "\n[line " + error.token.line + "]");
+        hadRuntimeError = true;
+    }
+
+
 
     private static void runFile(String path) throws IOException {
         byte[] bytes = Files.readAllBytes(Paths.get(path));
@@ -44,10 +53,12 @@ public class Lox {
     private static void run(String source) {
         Scanner scanner = new Scanner(source);
         List<Token> tokens = scanner.scanTokens();
-        // For now, just print the tokens.
-        for (Token token : tokens) {
-            System.out.println(token);
-        } }
+        Parser parser = new Parser(tokens);
+        Expr expression = parser.parse();
+        // Stop if there was a syntax error.
+        if (hadError) return;
+        System.out.println(new AstPrinter().print(expression));
+    }
 
 
     static void error(Token token, String message) {
