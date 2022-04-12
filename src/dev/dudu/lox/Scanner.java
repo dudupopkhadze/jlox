@@ -100,7 +100,7 @@ public class Scanner {
                 }   else if (isAlpha(c)) {
                     identifier();
                 } else {
-                    Lox.error(line, "Unexpected character.");
+//                    Lox.error(line, "Unexpected character.");
                 }
                 break;
         }
@@ -137,7 +137,7 @@ public class Scanner {
             if (peek() == '\n') line++;
             advance(); }
         if (isAtEnd()) {
-            Lox.error(line, "Unterminated string.");
+//            Lox.error(line, "Unterminated string.");
             return;
         }
         // The closing ".
