@@ -92,15 +92,20 @@ public class Scanner {
             case '\n':
                 line++;
                 break;
+            case 'o':
+                if (peek() == 'r') {
+                    addToken(OR);
+                }
+                break;
 
             case '"': string(); break;
             default:
                 if (isDigit(c)) {
                     number();
-                }   else if (isAlpha(c)) {
+                } else if (isAlpha(c)) {
                     identifier();
                 } else {
-//                    Lox.error(line, "Unexpected character.");
+                    Lox.error(new Token(EOF, "", null, line), "Unexpected character.");
                 }
                 break;
         }
@@ -137,7 +142,7 @@ public class Scanner {
             if (peek() == '\n') line++;
             advance(); }
         if (isAtEnd()) {
-//            Lox.error(line, "Unterminated string.");
+            Lox.error(new Token(EOF, "", null, line), "Unterminated string.");
             return;
         }
         // The closing ".
